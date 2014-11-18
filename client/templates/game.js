@@ -10,6 +10,7 @@ Template.game.events({
     down = true;
   },
   'touchmove.fingers #background': function(evt) {
+    evt.preventDefault();
     if(down) {
       if(ready) {
         //coords of click
