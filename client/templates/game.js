@@ -1,6 +1,6 @@
 var down = false;
-var ready = true;
-var throttleSpeed = 100; //milliseconds
+//var ready = true;
+//var throttleSpeed = 100; //milliseconds
 
 var prevX = 0;
 var prevY = 0;
@@ -35,6 +35,7 @@ var distanceSquared = function(x1,x2,y1,y2) {
 }
 
 $(function() {
+  Session.set('star', '/assets/stars/gold-burst-star.png');
   backgroundMusic.play();
   $("#background").css('background', "url('" +backgrounds[0]+"')");
   $("#background").css('background-size', "100% 100%");
@@ -42,7 +43,8 @@ $(function() {
 
 var placeStar = function(x,y) {
   //newStar = $("<div class='stamp'></div>").appendTo("#background").css('top', y).css('left', x);
-  newStar = $("<img class='stamp' src='/assets/stars/gold-burst-star.png' />").appendTo("#background").css('top', y).css('left', x);
+  newStar = $("<img class='stamp' src='' />").appendTo("#background").css('top', y).css('left', x);
+  newStar.attr('src', Session.get('star'));
   newStar.animate({
     width: '60px',
     height: '60px',
@@ -70,7 +72,7 @@ Template.game.events({
       starPlacedSFXFade.volume(1);
     });
   },
-  'touchstart.fingers': function(evt) {
+  'touchstart.fingers #background': function(evt) {
     down = true;
     starPlacedSFX.stop();
     starPlacedSFX.volume(1);
@@ -83,7 +85,6 @@ Template.game.events({
     var x = evt.pageX - $('#background').offset().left;
     var y = evt.pageY - $('#background').offset().top;
     if(distanceSquared(prevX, x, prevY, y) > 2000 ) {
-
       placeStar(x,y)
       prevX = x;
       prevY = y;
