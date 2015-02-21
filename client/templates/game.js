@@ -20,6 +20,13 @@ var backgroundMusic = new Howl({
   urls: [backgroundMusicURL],
   loop: true
 })
+
+// FOR DEBUG ONLY {
+window.bgm = backgroundMusic;
+bgm.mute();
+console.log("%cType bgm.unmute() to unmute the background music which I've temporarily made mute by default", "font-size: x-large")
+// }
+
 var starPlacedSFX = new Howl({
   urls: [starPlacedSFXUFL],
   loop: true
@@ -69,13 +76,13 @@ Template.game.events({
     starPlacedSFXFade.play();
     starPlacedSFXFade.fadeOut(0, 1000, function() {
       starPlacedSFXFade.stop();
-      starPlacedSFXFade.volume(1);
+      starPlacedSFXFade.volume(0.5);
     });
   },
   'touchstart.fingers #background': function(evt) {
     down = true;
     starPlacedSFX.stop();
-    starPlacedSFX.volume(1);
+    starPlacedSFX.volume(0.5);
     starPlacedSFX.play();
 
     //loop sound
