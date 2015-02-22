@@ -1,18 +1,34 @@
+// App globals {
+//scenery {
+backgrounds = [
+  "/assets/scenes/1/background@2x.png",
+  "/assets/scenes/2/background@2x.png",
+  "/assets/scenes/3/background@2x.png",
+  "/assets/scenes/4/background@2x.png",
+  "/assets/scenes/5/background@2x.png",
+  "/assets/scenes/6/background@2x.png",
+];
+foregrounds = [
+  "/assets/scenes/1/foreground@2x.png",
+  "/assets/scenes/2/foreground@2x.png",
+  "/assets/scenes/3/foreground@2x.png",
+  "/assets/scenes/4/foreground@2x.png",
+  "/assets/scenes/5/foreground@2x.png",
+  "/assets/scenes/6/foreground@2x.png",
+]
+//}
+
+currentScene = 0;
+NUMBER_OF_SCENES = backgrounds.length;
+// }
+
+// File globals {
 var down = false;
 //var ready = true;
 //var throttleSpeed = 100; //milliseconds
 
 var prevX = 0;
 var prevY = 0;
-
-//Backgrounds {
-var backgrounds = [
-  "/assets/backgrounds/background-1-farm.jpg"
-];
-//}
-
-
-
 //SOUNDS {
 var backgroundMusicURL = "/assets/sounds/glowstar-soundtrak-2.wav"
 var starPlacedSFXUFL = "/assets/sounds/twinkle.wav"
@@ -37,15 +53,21 @@ var starPlacedSFXFade = new Howl({
 })
 //}
 
+// }
+
 var distanceSquared = function(x1,x2,y1,y2) {
   return ((x1 - x2)*(x1 - x2)+((y1 - y2) *(y1 - y2)));
 }
 
+// OnLoad...
 $(function() {
+
   Session.set('star', '/assets/stars/gold-burst-star.png');
   backgroundMusic.play();
-  $("#background").css('background', "url('" +backgrounds[0]+"')");
-  $("#background").css('background-size', "100% 100%");
+  setScene(_.random(0, NUMBER_OF_SCENES));
+  //$("#backgroundImage").attr('src', backgrounds[0]);
+  //$("#foregroundImage").attr('src', foregrounds[0]);
+  //$("#background").css('background-size', "100% 100%");
 });
 
 var placeStar = function(x,y) {
@@ -69,15 +91,17 @@ var placeStar = function(x,y) {
 
 Template.game.events({
   'touchend.fingers': function(evt) {
-    down = false;
-    starPlacedSFX.stop();
-    pos = starPlacedSFX.pos
-    starPlacedSFXFade.pos(pos)
-    starPlacedSFXFade.play();
-    starPlacedSFXFade.fadeOut(0, 1000, function() {
-      starPlacedSFXFade.stop();
-      starPlacedSFXFade.volume(0.5);
-    });
+    if(down == true) {
+      down = false;
+      starPlacedSFX.stop();
+      pos = starPlacedSFX.pos
+      starPlacedSFXFade.pos(pos)
+      starPlacedSFXFade.play();
+      starPlacedSFXFade.fadeOut(0, 1000, function() {
+        starPlacedSFXFade.stop();
+        starPlacedSFXFade.volume(0.5);
+      });
+    }
   },
   'touchstart.fingers #background': function(evt) {
     down = true;
@@ -108,7 +132,6 @@ Template.game.events({
       //console.log(x,y)
 
       //birthStar
-      
 
       if(distanceSquared(prevX, x, prevY, y) > 2000 ) {
 
