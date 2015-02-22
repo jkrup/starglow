@@ -1,12 +1,11 @@
 #mute-button {
 	position:absolute;
-	top:4%;
+	bottom:4%;
 	right:3%;
 	border-radius:50%;
 	height:50px;
 	width:50px;
 	background:none;
-	border:1px solid white;
 	opacity:1;
 	transition:0.3s ease;
 	z-index: 9999999999;
@@ -17,9 +16,13 @@
 	&.muted {
 		background-image:url(/assets/mute/muted.png);
 		background-size:100% 100%;
+		background-repeat:no-repeat;
+		border:1px solid white;
 	}
 	&.playing {
 		background-image:url(/assets/mute/playing.png);
 		background-size:100% 100%;
+		background-repeat:no-repeat;
+		border:1px solid white;
 	}
 }
