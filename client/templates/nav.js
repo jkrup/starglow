@@ -11,8 +11,11 @@ Template.nav.events({
     // }
 
     // Clear stars
-    $(".stamp").remove();
-    // TODO: Add shooting star animation!
+    $(".stamp").addClass('blastoff');
+    
+    setTimeout(function() {
+      $(".stamp").remove();
+    }, 1000);
     //Session.set('fg', 'assets/foreground/background-2-mountain.png'); //TODO: decide if we want to grab separate star icon or THIS image..
   }
 })

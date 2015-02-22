@@ -37,8 +37,11 @@ html, body {
   -webkit-animation: animationFrames linear 1s;
   -webkit-animation-iteration-count: infinite;
   -webkit-transform-origin: 50% 50%;
-
-
+  transition:all 1s ease;
+  &.blastoff {
+    margin-top:1200px;
+    opacity:0;
+  }
 }
 
 @keyframes animationFrames{
