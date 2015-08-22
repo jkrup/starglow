@@ -76,15 +76,11 @@ var placeStar = function(x,y) {
   newStar.attr('src', Session.get('star'));
   newStar.animate({
     width: '60px',
-    height: '60px',
-    top: '-=12px',
-    left: '-=12px'
+    height: '60px'
   }, 200, function() {
     $(this).animate({
     width: '40px',
     height: '40px',
-    top: '+=12px',
-    left: '+=12px'
     }, 200)
   });
 };
