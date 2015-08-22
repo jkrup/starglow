@@ -72,8 +72,8 @@ $(function() {
 
 var placeStar = function(x,y) {
   //newStar = $("<div class='stamp'></div>").appendTo("#background").css('top', y).css('left', x);
-  newStar = $("<img class='stamp' src='' />").appendTo("#background").css('top', y).css('left', x);
-  newStar.attr('src', Session.get('star'));
+  newStar = $("<img class='stamp' src='"+Session.get('star')+"' />").appendTo("#background").css('top', y).css('left', x);
+  //newStar.attr('src', Session.get('star'));
   newStar.animate({
     width: '60px',
     height: '60px'
