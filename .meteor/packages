@@ -8,4 +8,7 @@ autopublish
 insecure
 less
 
-appcache
+meteorhacks:npm
+
+
+npm-container

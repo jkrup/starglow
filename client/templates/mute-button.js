@@ -1,3 +1,4 @@
+/*
 // instead of in $(document).ready(... we just put Template.____.events({
 Template.muteButton.events({
   'touchend.fingers .muted': function() {
@@ -10,3 +11,4 @@ Template.muteButton.events({
     bgm.mute();
   }
 })
+*/

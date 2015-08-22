@@ -1,3 +1,4 @@
+/*
 Template.nav.events({
   'touchend.fingers .nav-button': function(evt) {
     Session.set('star', $(evt.currentTarget).children("img").attr("src")); //TODO: decide if we want to grab separate star icon or THIS image..
@@ -25,3 +26,4 @@ setScene = function(index) {
   $("#backgroundImage").attr('src', backgrounds[index]);
   $("#foregroundImage").attr('src', foregrounds[index]);
 }
+*/
