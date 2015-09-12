@@ -13,11 +13,13 @@ Template.game.rendered = function() {
 
   function preload() {
     Session.set("star", "star1");
+    Session.set("level", "1");
     //TODO: replace with sprite sheet of stars
     game.load.image('star1', 'assets/stars/gold-burst-star.png');
     game.load.image('star2', 'assets/stars/blue-outline-star.png');
     game.load.image('star3', 'assets/stars/gold-round-star.png');
     game.load.image('star4', 'assets/stars/green-star.png');
+    game.load.image('reset', 'assets/navigation/reset.png');
 
     game.load.image('background1', 'assets/scenes/1/background@2x.png');
     game.load.image('foreground1', 'assets/scenes/1/foreground@2x.png');
@@ -26,69 +28,84 @@ Template.game.rendered = function() {
   }
 
   function create() {
+
+    function resetLevel() {
+      game.starsLayer.forEach(function(star) {
+        //Fly star out in random direction
+        
+        //game.add.tween(star).to( { angle: 45 }, 500, Phaser.Easing.Linear.None, true,0,-1, true);
+        //game.add.tween(star).to( { width: (Gamespace.starSize * 0.9), height: (Gamespace.starSize * 0.9)  }, 400, Phaser.Easing.Linear.None, true,0,-1, true);
+      })
+      Session.set("level", "2")
+    };
+
+    function changeStar(star) {
+      Session.set("star", star)
+    };
+
+
     // Background & Foreground & starslayer {
-    // Background Layer
-    var backgroundLayer = game.add.group();
-    backgroundLayer.z = 0;
 
-    // Stars Layer
-    game.starsLayer = game.add.group();
-    game.starsLayer.z = 1;
+      // Background Layer
+      var backgroundLayer = game.add.group();
 
-    // Foreground Layer
-    var foregroundLayer = game.add.group();
-    foregroundLayer.z = 2;
+      // Stars Layer
+      game.starsLayer = game.add.group();
 
+      // Foreground Layer
+      var foregroundLayer = game.add.group();
 
-    // Add background and foreground images & set height
-    var background = game.add.sprite(0, 0, 'background1');
-    var foreground = game.add.sprite(0, 0, 'foreground1');
-    background.height = foreground.height = game.height;
-    background.width = foreground.width =  game.width;
-    backgroundLayer.add(background);
-    foregroundLayer.add(foreground);
+      // Add background and foreground images & set height
+      var background = game.add.sprite(0, 0, 'background1');
+      var foreground = game.add.sprite(0, 0, 'foreground1');
+      background.height = foreground.height = game.height;
+      background.width = foreground.width =  game.width;
+      backgroundLayer.add(background);
+      foregroundLayer.add(foreground);
 
-    // Events (touch for stars)
-    background.inputEnabled = true;
-    background.input.priorityID = 0; // lower priority
-    background.events.onInputDown.add(pressedDown);
-    background.events.onInputUp.add(releasedDown);
+      // Events (touch for stars)
+      background.inputEnabled = true;
+      background.input.priorityID = 0; // lower priority
+      background.events.onInputDown.add(pressedDown);
+      background.events.onInputUp.add(releasedDown);
 
     // }
 
     // Menu Bar {
       // Menubar Layer
       var menuBarLayer = game.add.group();
-      backgroundLayer.z = 3;
 
       // Menubar background
 
       // First button
-      var button1 = game.add.button(0,0, 'star1', function() { Session.set('star', 'star1') })
+      var button1 = game.add.button(0,0, 'star1', changeStar('star1'));
       button1.height = button1.width = Gamespace.starSize;
 
       // second Button
-      var button2 = game.add.button(100,0, 'star2', star2cb)
+      var button2 = game.add.button(100,0, 'star2', changeStar('star2'));
       button2.height = button2.width = Gamespace.starSize;
 
       // third Button
-      var button3 = game.add.button(200,0, 'star3', function(){Session.set('star','star3')})
+      var button3 = game.add.button(200,0, 'star3', changeStar('star3'));
       button3.height = button3.width = Gamespace.starSize;
 
       // fourth Button
-      var button4 = game.add.button(300,0, 'star4', function(){Session.set('star','star4')})
+      var button4 = game.add.button(300,0, 'star4', changeStar('star4'));
       button4.height = button4.width = Gamespace.starSize;
 
-      // Reset button
+      var resetButton = game.add.button(400, 0, 'reset', resetLevel);
+      resetButton.height = resetButton.width = Gamespace.starSize;
 
+      //Add to layer
+      menuBarLayer.add(button1);
+      menuBarLayer.add(button2);
+      menuBarLayer.add(button3);
+      menuBarLayer.add(button4);
 
     // }
 
   }
 
-  function star2cb() {
-    Session.set("star", "star2")
-  }
 
   function update() {
     // Finger down, but not pressing button
