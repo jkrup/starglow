@@ -1,35 +1,4 @@
-Gamespace = {
-  utils: {
-    distanceSquared: function(x1, x2, y1, y2) {
-      return ((x1 - x2)*(x1 - x2)+((y1 - y2) *(y1 - y2)));
-    }
-  },
-  starSize: 50,
-  buildGameGrounds: function() {
-    //Background & Foreground {
-    var backgroundLayer = game.add.group();
-    backgroundLayer.z = 0;
-
-    var foregroundLayer = game.add.group();
-    foregroundLayer.z = 2;
-
-    var background = game.add.sprite(0, 0, 'background1');
-    var foreground = game.add.sprite(0, 0, 'foreground1');
-    background.height = foreground.height = game.height
-    background.width = foreground.width = game.width
-
-    backgroundLayer.add(background);
-    foregroundLayer.add(foreground);
-    // }
-
-    starsLayer = game.add.group();
-    starsLayer.z = 1;
-    return {
-      starsLayer: starsLayer
-    };
-  }
-};
-
+Gamespace.starSize = 50;
 
 Template.game.rendered = function() {
   game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO,'', {preload: preload, create: create, update: update, render: function() {}});
@@ -52,6 +21,8 @@ Template.game.rendered = function() {
 
     game.load.image('background1', 'assets/scenes/1/background@2x.png');
     game.load.image('foreground1', 'assets/scenes/1/foreground@2x.png');
+    game.load.image('background2', 'assets/scenes/2/background@2x.png');
+    game.load.image('foreground2', 'assets/scenes/2/foreground@2x.png');
   }
 
   function create() {
@@ -168,14 +139,6 @@ Template.game.rendered = function() {
   }
 
 }
-
-
-
-
-
-
-
-
 
 
 /*
