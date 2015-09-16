@@ -32,7 +32,12 @@ Template.game.rendered = function() {
     function resetLevel() {
       game.starsLayer.forEach(function(star) {
         //Fly star out in random direction
-        
+        var deg = (Math.random() * 2 * Math.PI);
+        var magnitute = 5000;
+        var newX = Math.sin(deg) * magnitute;
+        var newY = Math.cos(deg) * magnitute;
+
+        game.add.tween(star).to( {y: newY, x: newX}, 5000, Phaser.Easing.Linear.None, true, 0, 0, false);
         //game.add.tween(star).to( { angle: 45 }, 500, Phaser.Easing.Linear.None, true,0,-1, true);
         //game.add.tween(star).to( { width: (Gamespace.starSize * 0.9), height: (Gamespace.starSize * 0.9)  }, 400, Phaser.Easing.Linear.None, true,0,-1, true);
       })
